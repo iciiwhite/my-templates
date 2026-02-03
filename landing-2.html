@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Digital | Future Forward</title>
+<style>
+:root {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #111111;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --accent: #3b82f6;
+    --accent-hover: #2563eb;
+    --border: #27272a;
+    --card-bg: #18181b;
+    --nav-height: 80px;
+    --font-main: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+ul {
+    list-style: none;
+}
+button {
+    font-family: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+.header.scrolled {
+    border-bottom: 1px solid var(--border);
+}
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.logo-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--accent);
+    border-radius: 4px;
+}
+.nav-links {
+    display: flex;
+    gap: 40px;
+}
+.nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+.nav-link:hover {
+    color: var(--text-primary);
+}
+.btn {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+.btn-primary {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+}
+.btn-primary:hover {
+    background: var(--text-secondary);
+    transform: translateY(-1px);
+}
+.btn-outline {
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-primary);
+}
+.btn-outline:hover {
+    border-color: var(--text-primary);
+}
+.mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: transparent;
+}
+.bar {
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    transition: transform 0.3s ease;
+}
+.hero {
+    padding-top: 160px;
+    padding-bottom: 100px;
+    position: relative;
+    overflow: hidden;
+}
+.hero-content {
+    max-width: 800px;
+    animation: fadeIn 0.8s ease-out;
+}
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+.hero-title {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    background: linear-gradient(to right, #fff, #a1a1aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hero-desc {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+.hero-actions {
+    display: flex;
+    gap: 16px;
+}
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-top: 80px;
+}
+.stat-item h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.stat-item p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+.section {
+    padding: 120px 0;
+}
+.section-header {
+    margin-bottom: 64px;
+}
+.section-label {
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    display: block;
+}
+.section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--text-secondary);
+}
+.card-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+.card-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--text-primary);
+}
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+.card p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+.work-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 16/12;
+    background: var(--card-bg);
+    group: hover;
+}
+.work-bg {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s ease;
+    opacity: 0.7;
+}
+.work-item:hover .work-bg {
+    transform: scale(1.05);
+    opacity: 0.4;
+}
+.work-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 40px;
+    width: 100%;
+}
+.work-info h3 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+.work-info p {
+    color: var(--text-secondary);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease 0.1s;
+}
+.work-item:hover h3, .work-item:hover p {
+    transform: translateY(0);
+    opacity: 1;
+}
+.work-1 { background: radial-gradient(circle at top right, #4f46e5, #000); }
+.work-2 { background: radial-gradient(circle at bottom left, #ec4899, #000); }
+.work-3 { background: radial-gradient(circle at center, #10b981, #000); }
+.work-4 { background: radial-gradient(circle at top left, #f59e0b, #000); }
+.cta-section {
+    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    text-align: center;
+}
+.footer {
+    border-top: 1px solid var(--border);
+    padding: 80px 0 40px;
+}
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 64px;
+    margin-bottom: 64px;
+}
+.footer-brand p {
+    color: var(--text-secondary);
+    margin-top: 16px;
+    max-width: 300px;
+}
+.footer-col h4 {
+    font-size: 1rem;
+    margin-bottom: 24px;
+}
+.footer-col ul li {
+    margin-bottom: 12px;
+}
+.footer-col ul li a {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+.footer-col ul li a:hover {
+    color: var(--text-primary);
+}
+.copyright {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+@media (max-width: 1024px) {
+    .hero-title { font-size: 3.5rem; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .nav-links, .desktop-cta { display: none; }
+    .mobile-toggle { display: flex; }
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--bg-primary);
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+    .mobile-menu.active { transform: translateX(0); }
+    .mobile-menu a { font-size: 1.5rem; font-weight: 600; }
+    .hero-title { font-size: 2.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .work-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+</head>
+<body>
+    <header class="header">
+        <div class="container nav">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                NEXUS
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services" class="nav-link">Expertise</a></li>
+                <li><a href="#work" class="nav-link">Selected Work</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#insights" class="nav-link">Insights</a></li>
+            </ul>
+            <div class="desktop-cta">
+                <a href="#contact" class="btn btn-primary">Start Project</a>
+            </div>
+            <button class="mobile-toggle" aria-label="Menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu">
+        <a href="#services">Expertise</a>
+        <a href="#work">Selected Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Start Project</a>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="badge">EST. 2026</span>
+                    <h1 class="hero-title">Designing the future of digital experience.</h1>
+                    <p class="hero-desc">We are a strategic design and engineering agency. We build products that shape industries and define the next generation of web technology.</p>
+                    <div class="hero-actions">
+                        <a href="#work" class="btn btn-primary">View Portfolio</a>
+                        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                    </div>
+                </div>
+                <div class="stats reveal">
+                    <div class="stat-item">
+                        <h3>120+</h3>
+                        <p>Projects Shipped</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>$1B+</h3>
+                        <p>Client Valuation</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>15</h3>
+                        <p>Industry Awards</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <p>Global Support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-label">Our Expertise</span>
+                    <h2 class="section-title">Comprehensive design<br>and engineering.</h2>
+                </div>
+                <div class="services-grid">
+                    <div class="card reveal">
+                        <div class="card-icon">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        </div>
+                        <h3>Product Design</h3>
+                        <p>User-centric interfaces that drive engagement and retention through intuitive systems.</p>
+                    </div>
+                    <div class="card reveal">
+                        <div class="card-icon">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                        </div>
+                        <h3>Development</h3>
+                        <p>Scalable, high-performance architectures built with modern standards and cleaner code.</p>
+                    </div>
+                    <div class="card reveal">
+                        <div class="card-icon">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <h3>Brand Strategy</h3>
+                        <p>Defining visual identities that resonate with your audience and stand the test of time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-label">Selected Work</span>
+                    <h2 class="section-title">Recent productions.</h2>
+                </div>
+                <div class="work-grid">
+                    <div class="work-item work-1 reveal">
+                        <div class="work-bg"></div>
+                        <div class="work-info">
+                            <h3>FinTech Core</h3>
+                            <p>Banking Infrastructure</p>
+                        </div>
+                    </div>
+                    <div class="work-item work-2 reveal">
+                        <div class="work-bg"></div>
+                        <div class="work-info">
+                            <h3>Lumina Health</h3>
+                            <p>Medical Dashboard</p>
+                        </div>
+                    </div>
+                    <div class="work-item work-3 reveal">
+                        <div class="work-bg"></div>
+                        <div class="work-info">
+                            <h3>EcoChain</h3>
+                            <p>Sustainable Supply Chain</p>
+                        </div>
+                    </div>
+                    <div class="work-item work-4 reveal">
+                        <div class="work-bg"></div>
+                        <div class="work-info">
+                            <h3>AeroSpace</h3>
+                            <p>Flight Telemetry</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section cta-section">
+            <div class="container">
+                <div class="reveal">
+                    <h2 class="section-title" style="margin-bottom: 24px;">Ready to define the future?</h2>
+                    <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 40px;">Let's build something extraordinary together.</p>
+                    <a href="#contact" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 32px;">Start a Project</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon"></div>
+                        NEXUS
+                    </a>
+                    <p>Crafting digital products for forward-thinking brands since 2026.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">Development</a></li>
+                        <li><a href="#">Strategy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Social</h4>
+                    <ul>
+                        <li><a href="#">Twitter / X</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <span>&copy; 2026 Nexus Digital Agency. All rights reserved.</span>
+                <div style="display: flex; gap: 24px;">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.header');
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px"
+    };
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    mobileToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        const bars = mobileToggle.querySelectorAll('.bar');
+        if (mobileMenu.classList.contains('active')) {
+            bars[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+            bars[1].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+        } else {
+            bars[0].style.transform = 'none';
+            bars[1].style.transform = 'none';
+        }
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            const bars = mobileToggle.querySelectorAll('.bar');
+            bars[0].style.transform = 'none';
+            bars[1].style.transform = 'none';
+        });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+});
+</script>
+</body>
+</html>
