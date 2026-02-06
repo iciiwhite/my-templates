@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Template</title>
+    <script src="https://iciiwhite.github.io/tailwind.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --icii-primary: #000000;
+            --icii-bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--icii-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .icii-orb {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(60px);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .icii-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .icii-input-group {
+            position: relative;
+            margin-bottom: 1.25rem;
+        }
+
+        .icii-input {
+            width: 100%;
+            padding: 10px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #e2e8f0;
+            outline: none;
+            transition: all 0.4s ease;
+            font-size: 0.95rem;
+        }
+
+        .icii-input:focus {
+            border-bottom-color: var(--icii-primary);
+        }
+
+        .icii-label {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            color: #94a3b8;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .icii-input:focus ~ .icii-label,
+        .icii-input:not(:placeholder-shown) ~ .icii-label {
+            top: -14px;
+            font-size: 0.7rem;
+            color: var(--icii-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .icii-btn {
+            background: var(--icii-primary);
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+            width: 100%;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .icii-btn:hover {
+            letter-spacing: 0.02em;
+            box-shadow: 0 10px 20px -10px rgba(0,0,0,0.2);
+        }
+
+        .icii-view {
+            display: none;
+            animation: iciiFade 0.5s ease forwards;
+        }
+
+        .icii-view.active {
+            display: block;
+        }
+
+        @keyframes iciiFade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .icii-mark {
+            position: absolute;
+            bottom: 2rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="icii-orb" id="orb1" style="top: -150px; left: -150px;"></div>
+    <div class="icii-orb" id="orb2" style="bottom: -150px; right: -150px;"></div>
+
+    <div class="icii-card">
+        <div id="login-view" class="icii-view active">
+            <div class="mb-8">
+                <h1 class="text-xl font-semibold tracking-tight">Login</h1>
+                <p class="text-xs text-slate-400 mt-1">Access your ICII workspace</p>
+            </div>
+            <form onsubmit="handleSubmit(event, 'Logging in...')">
+                <div class="icii-input-group">
+                    <input type="email" class="icii-input" placeholder=" " required>
+                    <label class="icii-label">Email</label>
+                </div>
+                <div class="icii-input-group">
+                    <input type="password" class="icii-input" placeholder=" " required>
+                    <label class="icii-label">Password</label>
+                </div>
+                <button type="submit" class="icii-btn">Continue</button>
+            </form>
+            <p class="mt-6 text-center text-xs text-slate-400">
+                New here? <a href="javascript:void(0)" onclick="toggleAuth()" class="text-black font-semibold">Create Account</a>
+            </p>
+        </div>
+
+        <div id="signup-view" class="icii-view">
+            <div class="mb-8">
+                <h1 class="text-xl font-semibold tracking-tight">Register</h1>
+                <p class="text-xs text-slate-400 mt-1">Join the elite asset network</p>
+            </div>
+            <form onsubmit="handleSubmit(event, 'Creating account...')">
+                <div class="icii-input-group">
+                    <input type="text" class="icii-input" placeholder=" " required>
+                    <label class="icii-label">Full Name</label>
+                </div>
+                <div class="icii-input-group">
+                    <input type="email" class="icii-input" placeholder=" " required>
+                    <label class="icii-label">Email</label>
+                </div>
+                <div class="icii-input-group">
+                    <input type="password" class="icii-input" placeholder=" " required>
+                    <label class="icii-label">Password</label>
+                </div>
+                <button type="submit" class="icii-btn">Join Now</button>
+            </form>
+            <p class="mt-6 text-center text-xs text-slate-400">
+                Already member? <a href="javascript:void(0)" onclick="toggleAuth()" class="text-black font-semibold">Sign In</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="icii-mark">ICII WEB ASSETS</div>
+
+    <script>
+        const toggleAuth = () => {
+            const l = document.getElementById('login-view');
+            const s = document.getElementById('signup-view');
+            l.classList.toggle('active');
+            s.classList.toggle('active');
+        };
+
+        const handleSubmit = (e, msg) => {
+            e.preventDefault();
+            const b = e.target.querySelector('button');
+            const t = b.innerText;
+            b.innerText = msg;
+            b.style.opacity = '0.5';
+            b.disabled = true;
+            setTimeout(() => {
+                b.innerText = 'Success';
+                b.style.background = '#000';
+                setTimeout(() => {
+                    b.innerText = t;
+                    b.style.opacity = '1';
+                    b.disabled = false;
+                }, 1000);
+            }, 1200);
+        };
+
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 40;
+            const y = (e.clientY / window.innerHeight - 0.5) * 40;
+            document.getElementById('orb1').style.transform = `translate(${x}px, ${y}px)`;
+            document.getElementById('orb2').style.transform = `translate(${-x}px, ${-y}px)`;
+        });
+    </script>
+</body>
+</html>
