@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icii Temps | Liquid Glass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-refraction: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        .bg-video-wrap {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-fluid {
+            width: 110%;
+            height: 110%;
+            object-fit: cover;
+            filter: saturate(1.2) brightness(0.8);
+            transform: translate(-2%, -2%);
+        }
+
+        .liquid-glass-surface {
+            background: rgba(255, 255, 255, 0.005);
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
+            border-top: 1px solid rgba(255, 255, 255, 0.6);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .liquid-glass-surface:hover {
+            backdrop-filter: blur(50px) saturate(180%);
+            border-top: 1px solid rgba(255, 255, 255, 0.9);
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        .glass-text {
+            color: white;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            letter-spacing: -0.05em;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after { width: 100%; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .animate-float { animation: float 10s ease-in-out infinite; }
+    </style>
+</head>
+<body class="text-white">
+
+    <div class="bg-video-wrap">
+        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop" class="bg-fluid" alt="liquid">
+    </div>
+
+    <nav class="fixed top-0 w-full flex justify-between items-center px-12 py-10 z-50">
+        <div class="text-2xl font-semibold glass-text tracking-tighter">ICII.</div>
+        <div class="hidden md:flex gap-12 text-[10px] font-semibold uppercase tracking-[0.4em] opacity-60">
+            <a href="#" class="nav-link">Templates</a>
+            <a href="#" class="nav-link">Refract</a>
+            <a href="#" class="nav-link">Depth</a>
+        </div>
+        <div class="w-10 h-10 liquid-glass-surface rounded-full flex items-center justify-center border-white/40">
+            <div class="w-1 h-1 bg-white rounded-full"></div>
+        </div>
+    </nav>
+
+    <main class="relative z-10 min-h-screen flex flex-col justify-center items-center px-6">
+        <div class="relative w-full max-w-6xl">
+            <div class="liquid-glass-surface rounded-[4rem] p-16 md:p-32 animate-float relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+                
+                <h1 class="text-7xl md:text-[10rem] font-light leading-none glass-text mb-8">
+                <span class="font-semibold italic">Temps</span>
+                </h1>
+                
+                <p class="text-lg md:text-2xl font-light opacity-60 max-w-xl ml-2 mb-12">
+                    Experience the uncompromising precision of Icii White's templates—where elite liquid glass aesthetics meet high-performance architecture.
+                </p>
+
+                <div class="flex gap-4">
+                    <a href="https://iciiwhite.github.io#contact" class="liquid-glass-surface !rounded-full px-12 py-6 text-sm font-semibold uppercase tracking-widest transition-all inline-block">
+                        Acquire Template
+                    </a>
+                </div>
+            </div>
+
+            <div class="absolute -top-20 -right-20 w-64 h-64 liquid-glass-surface rounded-full opacity-50 blur-sm z-[-1] animate-float" style="animation-delay: -2s"></div>
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 liquid-glass-surface rounded-3xl opacity-30 z-[-1] animate-float" style="animation-delay: -5s"></div>
+        </div>
+    </main>
+
+    <aside class="fixed right-12 bottom-12 z-50 flex flex-col gap-4 items-end">
+        <div class="liquid-glass-surface !rounded-2xl p-6 text-right w-48">
+            <span class="block text-[10px] uppercase tracking-widest opacity-40 mb-1">Viscosity</span>
+            <span class="text-2xl font-light">0.82cps</span>
+        </div>
+        <div class="liquid-glass-surface !rounded-2xl p-6 text-right w-48">
+            <span class="block text-[10px] uppercase tracking-widest opacity-40 mb-1">Refraction</span>
+            <span class="text-2xl font-light">1.442 RI</span>
+        </div>
+    </aside>
+
+    <footer class="fixed bottom-12 left-12 z-50">
+        <div class="text-[10px] font-bold tracking-[0.5em] uppercase opacity-30">
+            Icii White &copy; 2026
+        </div>
+    </footer>
+
+    <script>
+        const bg = document.querySelector('.bg-fluid');
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            bg.style.transform = `translate(calc(-2% + ${moveX}px), calc(-2% + ${moveY}px)) scale(1.05)`;
+        });
+
+        document.querySelectorAll('.liquid-glass-surface').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                el.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.005) 50%)`;
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.background = `rgba(255,255,255,0.005)`;
+            });
+        });
+    </script>
+</body>
+</html>
